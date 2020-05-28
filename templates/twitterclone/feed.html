@@ -1,0 +1,11 @@
+{%extends 'base.html'%}
+{% block content%}
+
+<div class="jumbotron">
+    {% for tweet in tweets %}
+    <p>
+        {{tweet.tweet}}
+    </p>
+    {%endfor%}
+</div>
+{%endblock content%}

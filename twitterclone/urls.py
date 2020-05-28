@@ -17,8 +17,8 @@ from django.contrib import admin
 from django.urls import path
 
 from account.urls import urlpatterns as userurls
-
+from tweet.urls import urlpatterns as tweeturls
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
-urlpatterns += userurls
+urlpatterns += userurls + tweeturls
