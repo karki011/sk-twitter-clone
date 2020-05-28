@@ -1,0 +1,39 @@
+{%extends 'base.html'%}
+{% load crispy_forms_tags%}
+{% block content%}
+
+{% if user.is_authenticated%}
+<div class="jumbotron text-center m-4 ">
+  <h1 class="display-4 text-info">
+     <strong>
+         You have been already login in!
+     </strong>
+  </h1>
+  <hr class="my-4">
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="javascript:window.history.back()" role="button">Go back</a>
+  </p>
+</div>
+{%else%}
+<div class="jumbotron mx-auto w-50 mt-5">
+
+    <form action="" method="post">
+
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">
+                Log In
+            </legend>
+            {{form|crispy}}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-outline-info" type="submit">Login</button>
+        </div>
+
+    </form>
+</div>
+{%endif%}
+
+
+
+{%endblock content%}
