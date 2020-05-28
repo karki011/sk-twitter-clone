@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'account.apps.AccountConfig',
+    'tweet.apps.TweetConfig',
     'crispy_forms',
 ]
 
@@ -121,5 +122,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_URL = 'login'
 
-# LOGIN_REDIRECT_URL = 'homepage'
+LOGIN_REDIRECT_URL = 'index'
 
