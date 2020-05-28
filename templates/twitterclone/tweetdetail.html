@@ -1,0 +1,15 @@
+{%extends 'base.html'%}
+{% block content%}
+
+<div class="jumbotron">
+    <p>
+        {{tweet.tweet}}
+    </p>
+    <p>
+        {{tweet.created_by}}
+    </p>
+    <p>
+        {{tweet.date_created}}
+    </p>
+</div>
+{%endblock content%}

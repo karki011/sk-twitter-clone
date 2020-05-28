@@ -1,11 +1,12 @@
-{%extends 'base.html'%}
-{% block content%}
 
+{% for tweet in tweets %}
 <div class="jumbotron">
-    {% for tweet in tweets %}
-    <p>
-        {{tweet.tweet}}
+
+    <p class="lead">
+        <a href="{% url 'tweet' tweet.id%}"> {{tweet.tweet}}</a> <br>
+        <small class="text-muted">{{tweet.created_by}}</small><br>
+        <small class="text-muted">{{tweet.date_created}}</small>
     </p>
-    {%endfor%}
 </div>
-{%endblock content%}
+
+{%endfor%}
