@@ -4,15 +4,19 @@ from .forms import UserRegisterForm
 
 
 def register(request):
-    if request.method == 'POST':
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            print(username)
-            messages.success(request, f'Your accout has been created! Now you can login.')
-            return redirect('login')
+    if not request.user.is_authenticated:
+        if request.method == 'POST':
+            form = UserRegisterForm(request.POST)
+            if form.is_valid():
+                form.save()
+                username = form.cleaned_data.get('username')
+                print(username)
+                messages.success(request, f'Your accout has been created! Now you can login.')
+                return redirect('login')
+        else:
+            form = UserRegisterForm()
+        return render(request, 'twitterclone/register.html', {'form': form})
     else:
-        form = UserRegisterForm()
-    return render(request, 'twitterclone/register.html', {'form': form})
+        return redirect('homepage')
+
 

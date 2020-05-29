@@ -1,15 +1,19 @@
 {%extends 'base.html'%}
 {% block content%}
+<div class="container">
+    <div class="jumbotron lead text-center">
 
-<div class="jumbotron">
-    <p>
-        {{tweet.tweet}}
-    </p>
-    <p>
-        {{tweet.created_by}}
-    </p>
-    <p>
-        {{tweet.date_created}}
-    </p>
+
+             <a href="{% url 'usertweet' tweet.created_by %}">
+                    @{{tweet.created_by}}
+                </a>
+            <br>
+            {{tweet.date_created}}
+        <hr>
+            <br>
+            {{tweet.tweet}}
+
+    </div>
 </div>
+
 {%endblock content%}

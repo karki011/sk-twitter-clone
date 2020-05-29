@@ -1,12 +1,18 @@
-
 {% for tweet in tweets %}
-<div class="jumbotron">
+<div class="card  m-2 border-dark">
+    <div class="card-body text-center text-muted">
+        <p class="lead">
+            <small class="text-muted">
 
-    <p class="lead">
-        <a href="{% url 'tweet' tweet.id%}"> {{tweet.tweet}}</a> <br>
-        <small class="text-muted">{{tweet.created_by}}</small><br>
-        <small class="text-muted">{{tweet.date_created}}</small>
-    </p>
+                <a href="{% url 'usertweet' tweet.created_by %}">
+                    @{{tweet.created_by}}
+                </a>
+                <strong>--</strong>
+                <a href="{% url 'tweet' tweet.id%}">{{tweet.date_created}}</a>
+            </small>
+        <hr class="hr-4">
+        <p class="lead">{{tweet.tweet}}</p>
+    </div>
 </div>
-
 {%endfor%}
+

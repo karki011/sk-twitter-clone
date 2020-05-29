@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{%block content%}
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-3">
+        <div class="card  border-primary">
+            <div class="card-body text-uppercase">
+                <h5 class="card-title display-4 text-uppercase">{{viewed_user}}</h5>
+                <h6 class="card-subtitle mb-2 text-muted mt-3 "> Tweet counts: {{viewed_user.tweets.count}}</h6>
+                <h6 class="card-subtitle mb-2 text-muted mt-4">Following: {{viewed_user.following.count}}</h6>
+                <hr>
+                {% if viewed_user != user%}
+                <a class="btn bg-warning text-danger " href="{% url 'follow_user' viewed_user %}">Follow</a>
+                {%endif%}
+            </div>
+        </div>
+
+    </div>
+    <div class="col-6">
+        {% for tweet in tweets %}
+
+        <div class="card  m-2 border-dark">
+            <div class="card-body text-center text-muted">
+                <p class="lead">
+                    <small class="text-muted">
+
+                        <a href="{% url 'usertweet' tweet.created_by %}">
+                            @{{tweet.created_by}}
+                        </a>
+                        <strong>--</strong>
+                        <a href="{% url 'tweet' tweet.id%}">{{tweet.date_created}}</a>
+                    </small>
+                <hr class="hr-4">
+                <p class="lead">{{tweet.tweet}}</p>
+            </div>
+        </div>
+        {%endfor%}
+
+    </div>
+    <div class="col-1"></div>
+</div>
+{%endblock content%}

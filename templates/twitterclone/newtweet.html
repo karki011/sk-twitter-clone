@@ -2,23 +2,41 @@
 
 {% load crispy_forms_tags%}
 {% block content%}
-<div class="jumbotron mt-5">
-    <form action="" method="post">
-        {% csrf_token %}
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">
-                Create Tweet
-            </legend>
-            {{form|crispy}}
-        </fieldset>
-        <div class="form-group text-center">
-            <a class="btn btn-outline-secondary bg-danger text-white" href="javascript:window.history.back()">Cancel</a>
-            <button class="btn btn-outline-info bg-primary text-white" type="submit">Submit</button>
+<div class="row">
+    <div class="col-1"></div>
+    <div class="col-3">
+        <div class="card  border-primary text-uppercase">
+            <div class="card-body">
+                <h5 class="card-title display-4 text-uppercase">{{user}}</h5>
+                <a class="card-link" href="{% url 'usertweet' user %}"> @{{user}} </a>
+                <h6 class="card-subtitle mb-2 text-muted mt-3"> tweet counts: {{user.tweets.count}}</h6>
+                <h6 class="card-subtitle mb-2 text-muted mt-4">Following: {{user.following.count}}</h6>
+            </div>
         </div>
-    </form>
+          <div class="card jumbotron mt-1 border-success">
+            <div class="card-body ">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4">
+                            Create Tweet
+                        </legend>
+                        {{form|crispy}}
+                    </fieldset>
+                    <div class="form-group text-center">
+                        <button class="btn btn-outline-info bg-primary text-white" type="submit">TWEET</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
 
+
+        {%include 'twitterclone/feed.html'%}
+    </div>
+    <div class="col-1"></div>
 </div>
-{%include 'twitterclone/feed.html'%}
 
 
 {%endblock content%}
