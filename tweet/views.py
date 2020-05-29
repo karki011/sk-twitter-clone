@@ -31,7 +31,8 @@ class UserTweetListView(TemplateView):
 @login_required()
 def addtweet(request):
     html = "twitterclone/newtweet.html"
-    tweets = Tweet.objects.all().order_by('-id')
+    tweets = Tweet.objects.filter(created_by__in=request.user.following.all()).order_by("-id")
+    # tweets = Tweet.objects.all().order_by('-id')
     if request.method == 'POST':
         form = TweetForm(request.POST)
         if form.is_valid():
