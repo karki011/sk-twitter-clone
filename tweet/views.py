@@ -1,10 +1,13 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, TemplateView
+from django.views.generic import TemplateView
+
+from notification.models import Notification
 from .models import Tweet
 from account.models import Account
 from .forms import TweetForm
+from .helper import send_notifications
 
 
 # Create your views here.
@@ -30,9 +33,11 @@ class UserTweetListView(TemplateView):
 
 @login_required()
 def addtweet(request):
+    notifications =[]
     html = "twitterclone/newtweet.html"
     tweets = Tweet.objects.filter(created_by__in=request.user.following.all()).order_by("-id")
-    # tweets = Tweet.objects.all().order_by('-id')
+    if request.user.is_authenticated:
+        notifications = Notification.objects.filter(notify=request.user).filter(viewed=False)
     if request.method == 'POST':
         form = TweetForm(request.POST)
         if form.is_valid():
@@ -41,16 +46,18 @@ def addtweet(request):
                 tweet=data['tweet'],
                 created_by=request.user,
             )
+            send_notifications(Tweet.objects.last())
             messages.success(request, f'Your have  created new tweet.')
             return HttpResponseRedirect(reverse("homepage"))
     else:
         form = TweetForm()
 
-    return render(request, html, {'form': form, 'tweets': tweets})
+    return render(request, html, {'form': form, 'tweets': tweets, 'notifications': notifications})
 
 
 @login_required()
 def follow_user(request, username):
+    print('follow')
     if request.user.is_authenticated:
         my_user = Account.objects.get(username=request.user.username)
         viewed_user = Account.objects.get(username=username)
@@ -61,6 +68,7 @@ def follow_user(request, username):
 
 @login_required()
 def unfollow_user(request, username):
+    print('unfollow')
     if request.user.is_authenticated:
         my_user = Account.objects.get(username=request.user.username)
         viewed_user = Account.objects.get(username=username)

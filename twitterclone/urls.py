@@ -18,7 +18,8 @@ from django.urls import path
 
 from account.urls import urlpatterns as userurls
 from tweet.urls import urlpatterns as tweeturls
+from notification.urls import urlpatterns as notiurls
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
-urlpatterns += userurls + tweeturls
+urlpatterns += userurls + tweeturls + notiurls

@@ -9,20 +9,22 @@
                 <h6 class="card-subtitle mb-2 text-muted mt-3 "> Tweet counts: {{viewed_user.tweets.count}}</h6>
                 <h6 class="card-subtitle mb-2 text-muted mt-4">Following: {{viewed_user.following.count}}</h6>
                 <hr>
+                <a class="btn bg-warning text-danger " href="{% url 'follow_user' viewed_user %}">Follow this user</a>
 
+                {{user.following.count}}
                 {% if request.user != viewed_user %}
-                    {% if  request.user.is_authenticated and   viewed_user.following %}
-                        <a  class="btn bg-warning text-danger "href="{% url 'follow_user' viewed_user %}">Follow this user</a>
-                    {% else %}
-                      <a  class="btn bg-warning text-danger " href="{% url 'unfollow_user' viewed_user %}">
-                          unfollow</a>
-                    {% endif %}
+                {% if viewed.user in request.user.is_following %}
+                <a class="btn bg-warning text-danger " href="{% url 'follow_user' viewed_user %}">Follow this user</a>
+                {% else %}
+                <a class="btn bg-warning text-danger " href="{% url 'unfollow_user' viewed_user %}">
+                    unfollow</a>
+                {% endif %}
                 {% endif %}
             </div>
         </div>
-  <!--                {% if viewed_user != user%}-->
-                <!--                <a class="btn bg-warning text-danger " href="{% url 'follow_user' viewed_user %}">Follow</a>-->
-                <!--                {%endif%}-->
+        <!--                {% if viewed_user != user%}-->
+        <!--                <a class="btn bg-warning text-danger " href="{% url 'follow_user' viewed_user %}">Follow</a>-->
+        <!--                {%endif%}-->
     </div>
     <div class="col-6">
         {% for tweet in tweets %}
