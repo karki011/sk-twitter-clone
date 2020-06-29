@@ -9,7 +9,6 @@ from account.models import Account
 from .forms import TweetForm
 from .helper import send_notifications
 
-
 # Create your views here.
 
 def tweet(request, pk):
