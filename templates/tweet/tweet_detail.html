@@ -1,0 +1,17 @@
+{%extends 'base.html'%}
+
+{% block content%}
+<article class="media content-section">
+  <div class="media-body">
+    <div class="article-metadata">
+      <a class="mr-2" href="{% url 'userposts' object.author %}">{{ object.created_by }}</a>
+      <small class="text-muted"> {{ object.date_created|date:"F d, Y" }}</small>
+
+    </div>
+    <h2 class="article-title">
+      <small class="text-muted">{{object.tweet}}</small>
+    </h2>
+
+  </div>
+</article>
+{%endblock content%}

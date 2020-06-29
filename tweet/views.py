@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView, DetailView
 
 from notification.models import Notification
 from .models import Tweet
@@ -12,11 +12,10 @@ from .helper import send_notifications
 
 # Create your views here.
 
-@login_required()
 def tweet(request, pk):
     html = "twitterclone/tweetdetail.html"
-    tweet = Tweet.objects.get(pk=pk)
-    return render(request, html, {'tweet': tweet})
+    tweets = Tweet.objects.get(pk=pk)
+    return render(request, html, {'tweet': tweets})
 
 
 class UserTweetListView(TemplateView):
@@ -33,7 +32,7 @@ class UserTweetListView(TemplateView):
 
 @login_required()
 def addtweet(request):
-    notifications =[]
+    notifications = []
     html = "twitterclone/newtweet.html"
     tweets = Tweet.objects.filter(created_by__in=request.user.following.all()).order_by("-id")
     if request.user.is_authenticated:
